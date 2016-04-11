@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.sanaz.model.Book;
 import com.sanaz.model.BookCopies;
+import com.sanaz.model.LibraryBranch;
 import com.sanaz.util.DBConnection;
 
 public class BookCopiesDTO {
@@ -26,8 +28,13 @@ public class BookCopiesDTO {
 		ResultSet rs = statement.executeQuery(sql);
 		while(rs.next()){
 			BookCopies bookCopies = new BookCopies();
-			bookCopies.setBookId(rs.getInt("bookId"));
-			bookCopies.setBranchId(rs.getInt("branchId"));
+			Book book = new Book();
+			LibraryBranch libraryBranch = new LibraryBranch();
+			
+			book.setBookId(rs.getInt("bookId"));
+			bookCopies.setBook(book);
+			libraryBranch.setBranchId(rs.getInt("branchId"));
+			bookCopies.setLibraryBranch(libraryBranch);
 			bookCopies.setNoOfCopies(rs.getInt("noOfCopies"));
 			bookCopie.add(bookCopies);
 		}

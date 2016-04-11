@@ -13,30 +13,28 @@ import com.sanaz.util.DBConnection;
 public class AuthorDTO {
 	// this is author DTO
 	ArrayList<Author> authors = new ArrayList<Author>();
-	
-	public ArrayList<Author> getAuthors(){
-		
+
+	public ArrayList<Author> getAuthors() {
+
 		Connection connection = new DBConnection().getConnection();
 		Statement statement = null;
-	
-		try{
+
+		try {
 			System.out.println("Creating statement for author...");
 			statement = connection.createStatement();
 			String sql;
 			sql = "SELECT * FROM tbl_author";
 			ResultSet rs = statement.executeQuery(sql);
-			while(rs.next()){
+			while (rs.next()) {
 				Author author = new Author();
 				author.setAuthorId(rs.getInt("authorId"));
 				author.setAuthorName(rs.getString("authorName"));
 				authors.add(author);
 			}
 			rs.close();
-		}
-		catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			try {
 				connection.close();
 				statement.close();
@@ -44,35 +42,35 @@ public class AuthorDTO {
 				e.printStackTrace();
 			}
 		}
-		return authors;		
+		return authors;
 	}
+
 	public Author getAuthorById(int authorId) {
-		
+
 		Connection connection = new DBConnection().getConnection();
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		Author author = new Author();
 
-		try{		
-			preparedStatement = connection.prepareStatement("SELECT authorId, authorName FROM tbl_author WHERE authorId = ?");
+		try {
+			preparedStatement = connection
+					.prepareStatement("SELECT authorId, authorName FROM tbl_author WHERE authorId = ?");
 			preparedStatement.setInt(1, authorId);
 			resultSet = preparedStatement.executeQuery();
-			while(resultSet.next()){
+			while (resultSet.next()) {
 				author.setAuthorId(resultSet.getInt("authorId"));
 				author.setAuthorName(resultSet.getString("authorName"));
 			}
-			
+
 			resultSet.close();
-		}
-		catch (SQLException e){
-		e.printStackTrace();
-		}
-		finally {
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 			try {
 				connection.close();
 				preparedStatement.close();
 			} catch (SQLException e) {
-			e.printStackTrace();
+				e.printStackTrace();
 			}
 		}
 		return author;

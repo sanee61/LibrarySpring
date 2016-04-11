@@ -6,7 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.sanaz.model.Book;
 import com.sanaz.model.BookLoans;
+import com.sanaz.model.Borrower;
+import com.sanaz.model.LibraryBranch;
 import com.sanaz.util.DBConnection;
 
 public class BookLoansDTO {
@@ -25,9 +28,16 @@ public class BookLoansDTO {
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()){
 				BookLoans bookLoan = new BookLoans();
-				bookLoan.setBookId(rs.getInt("bookId"));
-				bookLoan.setBranchId(rs.getInt("branchid"));
-				bookLoan.setCardNo(rs.getInt("cardNo"));
+				Book book = new Book();
+				LibraryBranch libraryBranch = new LibraryBranch();
+				Borrower borrower = new Borrower();
+				
+				book.setBookId(rs.getInt("bookId"));
+				bookLoan.setBook(book);
+				libraryBranch.setBranchId(rs.getInt("branchId"));
+				bookLoan.setLibraryBranch(libraryBranch);
+				borrower.setCardNo(rs.getInt("cardNo"));	
+				bookLoan.setBorrower(borrower);
 				bookLoan.setDateOut(rs.getDate("dateOut"));
 				bookLoan.setDueDate(rs.getDate("dueDate"));
 				bookLoans.add(bookLoan);

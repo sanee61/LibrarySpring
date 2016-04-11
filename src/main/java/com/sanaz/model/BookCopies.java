@@ -1,28 +1,32 @@
 package com.sanaz.model;
 
 public class BookCopies {
-	
-	private int bookId;
-	private int branchId;
+
+	private Book book;
+	private LibraryBranch libraryBranch;
 	private int noOfCopies;
-	
-	public int getBookId() {
-		return bookId;
+
+	public Book getBook() {
+		return book;
 	}
-	public void setBookId(int bookId) {
-		this.bookId = bookId;
+
+	public void setBook(Book book) {
+		this.book = book;
 	}
-	public int getBranchId() {
-		return branchId;
+
+	public LibraryBranch getLibraryBranch() {
+		return libraryBranch;
 	}
-	public void setBranchId(int branchId) {
-		this.branchId = branchId;
+
+	public void setLibraryBranch(LibraryBranch libraryBranch) {
+		this.libraryBranch = libraryBranch;
 	}
+
 	public int getNoOfCopies() {
 		return noOfCopies;
 	}
+
 	public void setNoOfCopies(int noOfCopies) {
 		this.noOfCopies = noOfCopies;
 	}
-
 }
